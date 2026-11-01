@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Downloader</title>
+
+    <link
+        rel="stylesheet"
+        href="/static/style.css"
+    >
+
+</head>
+
+<body>
+
+    <main class="container">
+
+        <div class="card">
+
+            <div class="logo">
+                ▶
+            </div>
+
+            <h1>
+                Downloader
+            </h1>
+
+            <p class="subtitle">
+                Download videos in high quality
+            </p>
+
+            <form id="downloadForm">
+
+                <label for="url">
+                    YouTube URL
+                </label>
+
+                <input
+                    type="url"
+                    id="url"
+                    placeholder="Paste URL here..."
+                    required
+                >
+
+                <label for="quality">
+                    Video Quality
+                </label>
+
+                <select id="quality">
+
+                    <option value="best">
+                        Best Available
+                    </option>
+
+                    <option value="1080p">
+                        1080p
+                    </option>
+
+                    <option value="720p">
+                        720p
+                    </option>
+
+                    <option value="480p">
+                        480p
+                    </option>
+
+                </select>
+
+                <button
+                    type="submit"
+                    id="downloadButton"
+                >
+                    Download Video
+                </button>
+
+            </form>
+
+            <div
+                id="status"
+                class="status"
+            ></div>
+
+        </div>
+
+    </main>
+
+    <script src="/static/script.js"></script>
+
+</body>
+
+</html>
