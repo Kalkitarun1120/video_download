@@ -2,98 +2,217 @@
 <html lang="en">
 
 <head>
-
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <meta
-        name="viewport"
-        content="width=device-width, initial-scale=1.0"
-    >
+    <!-- Primary Meta Tags -->
+    <title>SnapVideo - Free YouTube & Instagram Video Downloader (HD & MP3)</title>
+    <meta name="title" content="SnapVideo - Free YouTube & Instagram Video Downloader (HD & MP3)">
+    <meta name="description" content="Download YouTube videos, Shorts, Instagram Reels, and MP3 audio for free in 1080p, 720p HD. Fast, no registration needed, works on mobile & PC.">
+    <meta name="keywords" content="youtube video download, instagram video download, download instagram reels, youtube to mp3, youtube shorts download, online video saver, free video downloader">
+    <meta name="robots" content="index, follow">
+    <meta name="language" content="English">
+    <meta name="author" content="SnapVideo">
 
-    <title>Downloader</title>
+    <!-- Open Graph / Facebook / WhatsApp -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://snapvideo.onrender.com/">
+    <meta property="og:title" content="SnapVideo - Free YouTube & Instagram Video Downloader">
+    <meta property="og:description" content="Download YouTube videos, Shorts, Instagram Reels, and MP3 audio for free in 1080p and 720p HD.">
+    <meta property="og:image" content="https://snapvideo.onrender.com/static/og-banner.png">
 
-    <link
-        rel="stylesheet"
-        href="/static/style.css"
-    >
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:title" content="SnapVideo - Free YouTube & Instagram Video Downloader">
+    <meta property="twitter:description" content="Fast, free video downloader for YouTube and Instagram Reels.">
 
+    <!-- Canonical Link -->
+    <link rel="canonical" href="https://snapvideo.onrender.com/">
+
+    <!-- Stylesheet -->
+    <link rel="stylesheet" href="/static/style.css">
+
+    <!-- Structured Data (Schema.org) for Google Search Rich Results -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebApplication",
+      "name": "SnapVideo Downloader",
+      "url": "https://snapvideo.onrender.com/",
+      "description": "Free online downloader for YouTube videos, Shorts, Instagram Reels, and MP3 audio.",
+      "applicationCategory": "MultimediaApplication",
+      "operatingSystem": "All",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD"
+      }
+    }
+    </script>
 </head>
 
 <body>
 
-    <main class="container">
-
-        <div class="card">
-
-            <div class="logo">
-                ▶
+    <!-- Header Navigation -->
+    <header class="navbar">
+        <div class="nav-container">
+            <a href="/" class="brand">
+                <span class="brand-icon">⚡</span>
+                <span class="brand-name">Snap<span class="highlight">Video</span></span>
+            </a>
+            <div class="nav-badges">
+                <span class="badge">YouTube</span>
+                <span class="badge">Shorts</span>
+                <span class="badge">Instagram Reels</span>
+                <span class="badge">MP3 Audio</span>
             </div>
-
-            <h1>
-                Downloader
-            </h1>
-
-            <p class="subtitle">
-                Download videos in high quality
-            </p>
-
-            <form id="downloadForm">
-
-                <label for="url">
-                    YouTube URL
-                </label>
-
-                <input
-                    type="url"
-                    id="url"
-                    placeholder="Paste URL here..."
-                    required
-                >
-
-                <label for="quality">
-                    Video Quality
-                </label>
-
-                <select id="quality">
-
-                    <option value="best">
-                        Best Available
-                    </option>
-
-                    <option value="1080p">
-                        1080p
-                    </option>
-
-                    <option value="720p">
-                        720p
-                    </option>
-
-                    <option value="480p">
-                        480p
-                    </option>
-
-                </select>
-
-                <button
-                    type="submit"
-                    id="downloadButton"
-                >
-                    Download Video
-                </button>
-
-            </form>
-
-            <div
-                id="status"
-                class="status"
-            ></div>
-
         </div>
+    </header>
+
+    <main class="page-content">
+
+        <!-- Hero Card Section -->
+        <section class="hero-section">
+            <div class="card">
+                <h1>Online Video & Reels Downloader</h1>
+                <p class="subtitle">Download videos and audio from YouTube and Instagram in high quality for free.</p>
+
+                <form id="downloadForm">
+                    <label for="url">Paste Video or Reel URL</label>
+                    <div class="input-wrapper">
+                        <input
+                            type="url"
+                            id="url"
+                            placeholder="https://www.youtube.com/watch?v=... or instagram.com/reel/..."
+                            required
+                            autocomplete="off"
+                        >
+                        <button type="button" id="pasteButton" class="btn-paste" title="Paste from clipboard">
+                            📋 Paste
+                        </button>
+                    </div>
+
+                    <!-- Video Preview Card (revealed when valid URL is entered) -->
+                    <div id="videoPreview" class="video-preview hidden">
+                        <img id="previewThumbnail" src="" alt="Video thumbnail" class="preview-thumb">
+                        <div class="preview-details">
+                            <h3 id="previewTitle" class="preview-title">Video Title</h3>
+                            <p id="previewAuthor" class="preview-author">Author</p>
+                            <span id="previewDuration" class="preview-duration">0:00</span>
+                        </div>
+                    </div>
+
+                    <label for="quality">Choose Quality / Format</label>
+                    <select id="quality">
+                        <option value="best">Best Available Quality (Full HD)</option>
+                        <option value="1080p">1080p Full HD</option>
+                        <option value="720p">720p HD</option>
+                        <option value="480p">480p Standard</option>
+                        <option value="audio">🎵 Audio Only (MP3)</option>
+                    </select>
+
+                    <button type="submit" id="downloadButton" class="btn-download">
+                        <span class="btn-text">Download Now</span>
+                    </button>
+                </form>
+
+                <div id="status" class="status"></div>
+            </div>
+        </section>
+
+        <!-- SEO Section: How It Works -->
+        <section class="info-section">
+            <h2 class="section-title">How to Download YouTube & Instagram Videos</h2>
+            <div class="steps-grid">
+                <div class="step-card">
+                    <div class="step-number">1</div>
+                    <h3>Copy Link</h3>
+                    <p>Open YouTube or Instagram and copy the link of the video, Shorts, or Reel you want to save.</p>
+                </div>
+                <div class="step-card">
+                    <div class="step-number">2</div>
+                    <h3>Paste & Select Quality</h3>
+                    <p>Paste the link into the box above and choose your preferred resolution (1080p, 720p, or MP3 audio).</p>
+                </div>
+                <div class="step-card">
+                    <div class="step-number">3</div>
+                    <h3>Instant Download</h3>
+                    <p>Click "Download Now" and your file will be saved directly to your device with the original title.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- SEO Section: Features -->
+        <section class="info-section">
+            <h2 class="section-title">Why Use SnapVideo Downloader?</h2>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">🚀</div>
+                    <h3>Ultra Fast Speed</h3>
+                    <p>Optimized download engine allows high-speed stream processing and rapid file delivery.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🎬</div>
+                    <h3>Full HD & 4K Ready</h3>
+                    <p>Preserve crystal-clear video quality up to 1080p Full HD with synchronized high-bitrate audio.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🎵</div>
+                    <h3>YouTube to MP3</h3>
+                    <p>Easily convert music, podcasts, and speeches into 192kbps MP3 audio files with one click.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">📱</div>
+                    <h3>Instagram Reels & Stories</h3>
+                    <p>Download your favorite Instagram Reels and videos directly to your camera roll or PC.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🔒</div>
+                    <h3>100% Free & Secure</h3>
+                    <p>No account required, no software installation, and files are automatically deleted after transfer.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">💻</div>
+                    <h3>All Devices Supported</h3>
+                    <p>Works smoothly on Android, iPhone/iPad (Safari), Windows, Mac, and Linux browsers.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- SEO Section: FAQ -->
+        <section class="info-section">
+            <h2 class="section-title">Frequently Asked Questions</h2>
+            <div class="faq-list">
+                <div class="faq-item">
+                    <h3>Is this YouTube & Instagram downloader free?</h3>
+                    <p>Yes, SnapVideo is 100% free with no limits on how many videos you can download.</p>
+                </div>
+                <div class="faq-item">
+                    <h3>Can I download Instagram Reels on my iPhone or Android?</h3>
+                    <p>Yes! Simply paste the Instagram Reel link into your mobile browser (Safari, Chrome) and tap Download to save it to your Photos or Files.</p>
+                </div>
+                <div class="faq-item">
+                    <h3>How can I convert YouTube videos to MP3?</h3>
+                    <p>Paste the YouTube URL, choose "Audio Only (MP3)" from the format dropdown, and click Download.</p>
+                </div>
+                <div class="faq-item">
+                    <h3>Do you store my downloaded videos on the server?</h3>
+                    <p>No. Videos are streamed directly to you and temporary files are immediately deleted to ensure total privacy.</p>
+                </div>
+            </div>
+        </section>
 
     </main>
 
-    <script src="/static/script.js"></script>
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-container">
+            <p>&copy; 2026 SnapVideo. Free Online Video Downloader.</p>
+            <p class="disclaimer">Disclaimer: SnapVideo does not host or pirate copyrighted content. Please only download content you have permission or legal right to save.</p>
+        </div>
+    </footer>
 
+    <script src="/static/script.js"></script>
 </body>
 
 </html>

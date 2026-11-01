@@ -9,11 +9,12 @@ from fastapi.staticfiles import StaticFiles
 from pydantic import BaseModel, HttpUrl
 from starlette.concurrency import run_in_threadpool
 
-from app.downloader import download_video
+from app.downloader import download_video, get_media_info
 
 
 app = FastAPI(
-    title="YouTube Downloader"
+    title="Universal Video Downloader",
+    description="Download videos and audio from YouTube, Instagram, and more."
 )
 
 
@@ -31,7 +32,7 @@ app.mount(
 
 
 class DownloadRequest(BaseModel):
-    url: HttpUrl
+    url: str
     quality: str = "best"
 
 
@@ -58,6 +59,39 @@ async def health():
     }
 
 
+@app.get("/robots.txt")
+async def robots():
+    content = "User-agent: *\nAllow: /\nSitemap: /sitemap.xml\n"
+    from fastapi.responses import PlainTextResponse
+    return PlainTextResponse(content=content)
+
+
+@app.get("/sitemap.xml")
+async def sitemap():
+    content = """<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <url>
+    <loc>https://snapvideo.onrender.com/</loc>
+    <priority>1.0</priority>
+    <changefreq>daily</changefreq>
+  </url>
+</urlset>"""
+    from fastapi.responses import Response
+    return Response(content=content, media_type="application/xml")
+
+
+@app.get("/api/info")
+async def media_info(url: str):
+    if not url:
+        raise HTTPException(status_code=400, detail="URL is required")
+    try:
+        info = await run_in_threadpool(get_media_info, url)
+        return info
+    except Exception as e:
+        print(f"Info extraction error: {e}")
+        raise HTTPException(status_code=400, detail="Could not retrieve video details. Please check the URL.")
+
+
 @app.post("/api/download")
 async def download(request: DownloadRequest, background_tasks: BackgroundTasks):
 
@@ -65,7 +99,8 @@ async def download(request: DownloadRequest, background_tasks: BackgroundTasks):
         "best",
         "1080p",
         "720p",
-        "480p"
+        "480p",
+        "audio"
     }
 
     if request.quality not in allowed_quality:
